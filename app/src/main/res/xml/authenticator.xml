@@ -2,5 +2,4 @@
     android:accountType="me.edgeconsult.chat"
     android:icon="@drawable/ic_action_name"
     android:smallIcon="@drawable/ic_action_name"
-    android:label="@string/label"
-    android:accountPreferences="@xml/account_preferences" />
+    android:label="@string/label" />
