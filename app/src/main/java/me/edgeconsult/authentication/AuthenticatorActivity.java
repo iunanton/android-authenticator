@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
     private static String TAG = "AuthenticatorActivity";
@@ -32,9 +34,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     private String password;
     private ProgressBar progressBar;
     private Button btn_login;
-
-    private String userName;
-    private String userPass;
 
     public static String ARG_ACCOUNT_TYPE = "ARG_ACCOUNT_TYPE";
     public static String ARG_AUTH_TYPE = "ARG_AUTH_TYPE";
@@ -82,14 +81,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             @Override
             protected Intent doInBackground(Void... voids) {
                 String urlParameters;
-                String targetURL = "http://172.17.0.6";
+                String targetURL = "https://owncloudhk.net/auth";
                 URL url;
-                HttpURLConnection connection = null;
+                HttpsURLConnection connection = null;
                 try {
                     urlParameters = "username=" + URLEncoder.encode(username, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8");
                     Log.i(TAG, urlParameters);
                     url = new URL(targetURL);
-                    connection = (HttpURLConnection)url.openConnection();
+                    connection = (HttpsURLConnection)url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0");
                     connection.setRequestProperty("Accept", "*/*");
