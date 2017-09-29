@@ -6,14 +6,19 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
     private static String TAG = "AuthenticatorActivity";
+    private TextInputLayout username;
+    private TextInputLayout password;
+    private ProgressBar progressBar;
     private Button btn_login;
 
     public static String ARG_ACCOUNT_TYPE = "ARG_ACCOUNT_TYPE";
@@ -30,6 +35,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticator);
         mAccountManager = AccountManager.get(getBaseContext());
+        username = findViewById(R.id.username_layout);
+        password = findViewById(R.id.password_layout);
+        progressBar = findViewById(R.id.progressBar);
         btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,14 +56,29 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         }*/
 
         btn_login.setEnabled(false);
+        username.setEnabled(false);
+        password.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
 
         // Create async task here
         new AsyncTask<Void, Void, Intent>() {
             @Override
             protected Intent doInBackground(Void... voids) {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception e) {
+                }
                 return null;
             }
-        };
+
+            @Override
+            protected void onPostExecute(Intent intent) {
+                progressBar.setVisibility(View.INVISIBLE);
+                username.setEnabled(true);
+                password.setEnabled(true);
+                btn_login.setEnabled(true);
+            }
+        }.execute();
     }
 
     private void login2() {
