@@ -17,23 +17,9 @@ import android.util.Log;
 
 public class Authenticator extends AbstractAccountAuthenticator {
     final Context mContext;
-    final ServerAuthenticate sServerAuthenticate;
     public Authenticator (Context context) {
         super(context);
         this.mContext = context;
-        this.sServerAuthenticate = new ServerAuthenticate() {
-            @Override
-            public String userSignIn(String name, String password, String authTokenType) {
-                String authToken = "50123116-8bbc-4ddc-8df8-56fe829bd26d";
-                return authToken;
-            }
-
-            @Override
-            public String userSignUp(String name, String password, String authTokenType) {
-                String authToken = "726e866c-9643-49e8-a26f-e26769883a5c";
-                return authToken;
-            }
-        };
     }
 
     @Override
@@ -50,12 +36,12 @@ public class Authenticator extends AbstractAccountAuthenticator {
     public Bundle getAuthToken(AccountAuthenticatorResponse accountAuthenticatorResponse, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
         final AccountManager am = AccountManager.get(mContext);
         String authToken = am.peekAuthToken(account, authTokenType);
-        if (TextUtils.isEmpty(authToken)) {
+        /*if (TextUtils.isEmpty(authToken)) {
             final String password = am.getPassword(account);
             if (password != null) {
                 authToken = sServerAuthenticate.userSignIn(account.name, password, authTokenType);
             }
-        }
+        }*/
         if (!TextUtils.isEmpty(authToken)) {
             final Bundle result = new Bundle();
             result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
