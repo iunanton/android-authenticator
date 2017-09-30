@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "No account yet", Toast.LENGTH_SHORT).show();
                 }
             });
-            Intent i = new Intent("android.accounts.AccountAuthenticator");
-            startActivity(i);
+            // Intent i = new Intent("android.accounts.AccountAuthenticator");
+            // startActivity(i);
         }
         /*Account[] account = am.getAccountsByType(AuthenticatorActivity.ACCOUNT_TYPE);
         Log.i("AccountManager", am.toString());
