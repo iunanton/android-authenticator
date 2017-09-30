@@ -148,6 +148,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         setAccountAuthenticatorResult(intent.getExtras());
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 }
