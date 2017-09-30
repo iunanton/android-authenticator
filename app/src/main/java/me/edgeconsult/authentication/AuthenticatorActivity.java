@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -35,14 +34,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     private ProgressBar progressBar;
     private Button btn_login;
 
-    public static String ARG_ACCOUNT_TYPE = "ARG_ACCOUNT_TYPE";
-    public static String ARG_AUTH_TYPE = "ARG_AUTH_TYPE";
-    public static String ARG_IS_ADDING_NEW_ACCOUNT = "ARG_IS_ADDING_NEW_ACCOUNT";
-
-    public static String ACCOUNT_TYPE = "me.edgeconsult.chat";
-
     private AccountManager mAccountManager;
-    private String mAuthTokenType = "";
+    private String mAuthTokenType = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +55,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     }
 
     private void login() {
-        Log.d(TAG, "Invoked login function");
+        // Log.d(TAG, "Invoked login function");
 
         /*if (!validate()) {
             onLoginFailed();
@@ -86,7 +79,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                 HttpsURLConnection connection = null;
                 try {
                     urlParameters = "username=" + URLEncoder.encode(username, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8");
-                    Log.i(TAG, urlParameters);
+                    // Log.i(TAG, urlParameters);
                     url = new URL(targetURL);
                     connection = (HttpsURLConnection)url.openConnection();
                     connection.setRequestMethod("POST");
@@ -106,7 +99,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                     String line;
                     StringBuffer response = new StringBuffer();
                     while((line = rd.readLine()) != null) {
-                        Log.i(TAG, line);
+                        // Log.i(TAG, line);
                         response.append(line);
                         response.append('\r');
                     }
@@ -147,7 +140,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         btn_login.setEnabled(true);
         String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
         final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
-        Log.i("log",account.toString());
+        // Log.i("log",account.toString());
         String authtoken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
         String authtokenType = mAuthTokenType;
         mAccountManager.addAccountExplicitly(account, null, null);
